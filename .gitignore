@@ -1,0 +1,5 @@
+build
+Release
+*.bat
+git_help.txt
+*.cmake
