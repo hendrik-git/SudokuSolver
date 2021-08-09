@@ -3,8 +3,13 @@ cmake_minimum_required(VERSION 3.20)
 
 # Define our project name
 project(SudokuSolver  
-    VERSION 0.4
-    LANGUAGES C CXX)
+    VERSION 0.5
+    LANGUAGES CXX)
+
+# Set C++ 17 compiler flags
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(SFML_DIR "D:/_Code Libraries/SFML-2.5.1/lib/cmake/SFML")
 set(SFML_STATIC_LIBRARIES TRUE)

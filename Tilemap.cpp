@@ -15,11 +15,11 @@ auto Tile::set(const int val) -> void
 }
 
 Map::Map(unsigned int width, unsigned int height)
+	: map_width{width}, map_height{height}
 {
-	map_width  = width;
-	map_height = height;
-	unsigned int x = 0;
-	unsigned int y = 0;
+	// helper values for dimension assignment
+	int x{ 0 };
+	int y{ 0 };
 
 	for(int row = 0; row < width; row++)
 	{
@@ -52,8 +52,10 @@ Map::Map(unsigned int width, unsigned int height)
 
 auto Map::clear(bool all) -> void
 {
-	for(int x = 0; x < map_width; x++){
-		for(int y = 0; y < map_height; y++){
+	for(int x = 0; x < map_width; x++)
+	{
+		for(int y = 0; y < map_height; y++)
+		{
 			if(all){
 				Tilemap[y][x].value = 0;
 				Tilemap[y][x].is_given = false;
@@ -91,8 +93,8 @@ auto Map::set(
 
 auto Map::pos_to_coordinates() -> std::pair<unsigned int,unsigned int>
 {
-	unsigned int column = pos / map_height;
-	unsigned int row    = pos % map_width;
+	unsigned int column{ pos / map_height };
+	unsigned int row   { pos % map_width  };
 	std::pair<unsigned int,unsigned int> result(column,row);
 	return result;
 }
@@ -110,7 +112,7 @@ auto Map::step() -> void
 		return;
 
 	if(Tilemap[0][0].value != 0){
-		// prevent negative positions
+		// prevent negative index positions
 		pos = std::max(0, (int)pos + dir);
 	}
 
@@ -132,7 +134,7 @@ auto Map::step() -> void
 		tile.value += 1;
 		if(tile.value > 15)
 		{   // prevent endless loop
-			std::cout << "ERROR: map cannot be solved\n";
+			std::cerr << "ERROR: map cannot be solved\n";
 			stopped = true;
 			break;
 		}
@@ -206,10 +208,10 @@ auto Map::check_box() -> bool
 {
 	// 3x3 box of values
 	std::set<int> container;
-	auto x_a = ((pos%map_width) /3)*3;
-	auto x_e = x_a + 3;
-	auto y_a = ((pos/map_height)/3)*3;
-	auto y_e = y_a + 3;
+	auto x_a{ ((pos%map_width) /3)*3 };
+	auto x_e{ x_a + 3 };
+	auto y_a{ ((pos/map_height)/3)*3 };
+	auto y_e{ y_a + 3 };
 
 	for(auto i=x_a; i<x_e; i++)
 	{
